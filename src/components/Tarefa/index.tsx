@@ -29,6 +29,7 @@ const Tarefa = ({
   }, [descricaoOriginal])
 
   function alteraStatusTarefa(evento:ChangeEvent<HTMLInputElement>){
+    console.log(evento.target.checked)
     dispatch(alteraStatus({
       id,
       finalizado:evento.target.checked

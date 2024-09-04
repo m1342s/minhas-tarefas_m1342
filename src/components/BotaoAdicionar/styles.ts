@@ -1,11 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import cores from "../../styles/cores"
 
 export const Circulo=styled(Link)`
 height: 64px;
 width: 64px;
-background-color: #44BD32;
+background-color: ${cores.verde};
 color: #fff;
 position: fixed;
 bottom: 40px;

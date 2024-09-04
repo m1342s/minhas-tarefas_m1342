@@ -8,27 +8,27 @@ const tarefasSlice = createSlice({
   name: 'tarefas',
   initialState: {
     itens: [
-      new Tarefa(
-        'Estudar JavaScript',
-        enums.Prioridade.IMPORTANTE,
-        enums.Status.PENDENTES,
-        '',
-        1
-      ),
-      new Tarefa(
-        'Estudar TypeScript',
-        enums.Prioridade.URGENTE,
-        enums.Status.CONCLUIDA,
-        'Rever aula 2 do módulo',
-        2
-      ),
-      new Tarefa(
-        'Estudar React',
-        enums.Prioridade.URGENTE,
-        enums.Status.PENDENTES,
-        'Praticar useEffect',
-        3
-      )
+      {
+        id:1,
+        descricao: 'Estudar JavaScript recevendo o exercício do módulo 7',
+        prioridade: enums.Prioridade.NORMAL,
+        status:enums.Status.CONCLUIDA,
+        titulo:'Estudar JavaScript'
+      },
+      {
+        id:2,
+        descricao: 'Estudar material de apoio',
+        prioridade: enums.Prioridade.NORMAL,
+        status:enums.Status.PENDENTES,
+        titulo:'Estudar TypeScript'
+      },
+      {
+        id:1,
+        descricao: 'Estudar JavaScript recevendo o exercício do módulo 7',
+        prioridade: enums.Prioridade.IMPORTANTE,
+        status:enums.Status.PENDENTES,
+        titulo:'Estudar Bootstrap'
+      },
     ]
   },
   reducers: {
@@ -43,7 +43,7 @@ const tarefasSlice = createSlice({
         state.itens[indexDaTarefa] = action.payload
       }
     },
-    cadastrar: (state, action: PayloadAction<Tarefa>) => {
+    cadastrar: (state, action: PayloadAction<Omit<Tarefa,'id'>>) => {
       const tarefaExiste = state.itens.find(
         (tarefa) =>
           tarefa.titulo.toLowerCase() === action.payload.titulo.toLowerCase()
@@ -51,7 +51,9 @@ const tarefasSlice = createSlice({
       if (tarefaExiste) {
         alert('Já existe uma tarefa com esse nome')
       } else {
-        state.itens.push(action.payload)
+        const ultimaTarefa=state.itens[state.itens.length-1]
+        const tarefaNova={...action.payload,id:ultimaTarefa? ultimaTarefa.id+1:1}
+        state.itens.push(tarefaNova)
       }
     },
     alteraStatus: (
